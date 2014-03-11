@@ -1,0 +1,10 @@
+node_modules/*
+app/components/*
+
+# System Files
+.DS_Store
+
+# Generated Files
+dist/*
+.tmp/*
+.sass-cache/*
