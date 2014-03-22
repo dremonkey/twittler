@@ -1,0 +1,144 @@
+.chatty-chatboxes {
+  @include display-box;
+  margin-left: -10px;
+  margin-top: -10px;
+  overflow: scroll;
+}
+
+.chatty-chatbox,
+.chatty-new {
+  margin: 10px;
+  width: 500px;
+  min-width: 500px;
+  height: 600px;
+  overflow-y: scroll;
+  background: darken($bgBody, 5%);
+}
+
+.chatty-new {
+  @include display-box;
+  @include box-align(center);
+  @include box-pack(center);
+  border: 1px solid darken($bgBody, 10%);
+}
+
+.chatty-chatbox {
+  $blue: #348eda;
+  position: relative;
+  background: white;
+
+  // Animations
+  &.ng-enter {
+    -webkit-animation: fadeInDown 1s;
+    -moz-animation: fadeInDown 1s;
+    -ms-animation: fadeInDown 1s;
+    animation: fadeInDown 1s;
+  }
+
+  & > .content {
+    border: 1px solid darken($bgBody, 10%);
+    min-height: 100%;
+  }
+
+  .chatty-newmessage {
+    background: $blue;
+    border: 1px solid darken($blue, 10%);
+    padding: 20px;
+    margin: -1px -1px 0 -1px;
+
+    p {
+      color: lighten($blue, 30%);
+      
+      .username {
+        font-weight: bold;
+      }
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    input {
+      border: 1px solid darken($blue, 10%);
+      @include border-radius(0);
+    }
+  }
+
+  .chatty-list {
+
+    .messages {
+      list-style: none;
+      padding: 20px 5px;
+      margin: 0;
+
+      .message {
+        margin-bottom: 10px;
+        @include clearfix();
+
+        // Animations
+        &.ng-enter {
+          -webkit-animation: fadeInLeft 1s;
+          -moz-animation: fadeInLeft 1s;
+          -ms-animation: fadeInLeft 1s;
+          animation: fadeInLeft 1s;
+        }
+
+        p {
+          margin: 0;
+        }
+
+        .msgtext {
+          background: #f4f8fa;
+          padding: 6px 12px;
+          border: 1px solid #e1e1e8;
+          line-height: 20px;
+          word-wrap: break-word;
+        }
+
+        .msgtime {
+          padding: 6px 12px;
+          line-height: 20px;
+          font-size: .8em;
+          color: #999;
+        }
+      }
+    }
+  }
+
+  .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.9);
+
+    // Animations
+    &.ng-hide-add {
+      display: block !important;
+    }
+
+    &.ng-hide {
+      -webkit-animation: fadeOutUp 0.5s;
+      -moz-animation: fadeOutUp 0.5s;
+      -ms-animation: fadeOutUp 0.5s;
+      animation: fadeOutUp 0.5s;
+    }
+
+    .content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 300px;
+      @include transform(translate(-50%, -50%));
+
+      .form-group {
+        width: 230px;
+      }
+
+      .btn {
+        margin-left: 10px;
+      }
+    }
+  }
+}

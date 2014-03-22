@@ -1,5 +1,8 @@
-<li class="tweet">
-  <span class="username"><%= user %></span>
-  <span class="message"><%= message %></span>
-  <span class="date"><%= createdAt %></span>
+<li class="tweet message">
+  <div class="col-sm-9">
+    <p class="msgtext"><a href=""><%= user %></a><span><%= message %></span></p>
+  </div>
+  <div class="col-sm-3">
+    <p class="msgtime">@<%= createdAt %></p>
+  </div>
 </li>

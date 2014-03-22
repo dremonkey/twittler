@@ -1,3 +1,41 @@
 <div class="site-header"></div>
-<ul class="stream"></ul>
+
+<div class="chatty-chatboxes">
+  <div class="chatty-chatbox">
+    <div class="content">
+      <div class="chatty-newmessage">
+        <form name="newmessage" role="form" class="form-horizontal">
+          <div class="form-group">
+            <div class="col-sm-12">
+              <label class="sr-only">New Message</label>
+              <input focus="startNewMessage" type="text" placeholder="{{chat.username}}: say something" class="form-control" required/>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div class="chatty-list">
+        <ul class="messages stream">
+        </ul>
+      </div>
+
+      <div chatty-setup class="overlay">
+        <div class="content">
+          <p>Welcome to the HackReactor applicant chat room. Pick your username and join the conversation.</p>
+          <form name="setup" class="form-inline" role="form">
+            <div class="form-group">
+              <label class="sr-only">Set Username</label>
+              <input type="text" placeholder="your username" class="form-control" required/>
+            </div>
+            <button class="btn btn-primary">set</button>  
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chatty-new">
+    <button class="btn btn-primary">Start a new chat</button>
+  </div>
+</div>
+
 <div class="site-footer"></div>
