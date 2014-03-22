@@ -27,14 +27,14 @@ module.exports = function (grunt) {
         files: ['app/scripts/{,*/}*.js'],
         tasks: ['newer:jshint:app'],
       },
-      // compass: {
-      //   files: ['styles/{,*/}*.{scss,sass}'],
-      //   tasks: ['compass:serve'],
-      // },
-      sass: {
+      compass: {
         files: ['styles/{,*/}*.{scss,sass}'],
-        tasks: ['sass:serve'],
+        tasks: ['compass:serve'],
       },
+      // sass: {
+      //   files: ['styles/{,*/}*.{scss,sass}'],
+      //   tasks: ['sass:serve'],
+      // },
       livereload: {
         files: [
           'app/index.html', // client side index file
@@ -61,51 +61,46 @@ module.exports = function (grunt) {
       }
     },
 
-    // compass: {
-    //   options: {
-    //     sassDir: 'app/styles',
-    //     imagesDir: 'app/images',
-    //     fontsDir: 'app/fonts',
-    //     importPath: 'app/components',
-    //     httpImagesPath: '/images',
-    //     httpGeneratedImagesPath: '/images/generated',
-    //     httpFontsPath: '/styles/fonts',
-    //     relativeAssets: false,
-    //     assetCacheBuster: false,
-    //     // raw: 'Sass::Script::Number.precision = 10\n'
-    //   },
-    //   serve: {
-    //     options: {
-    //       debugInfo: true,
-    //       cssDir: '.tmp/styles',
-    //       generatedImagesDir: '.tmp/images/generated'
-    //     }
-    //   },
-    //   dist: {
-    //     options: {
-    //       cssDir: 'dist/styles',
-    //       generatedImagesDir: 'dist/generated',
-    //       environment: 'production'
-    //     }
-    //   }
-    // },
-    sass: {
+    compass: {
+      options: {
+        sassDir: 'app/styles',
+        imagesDir: 'app/images',
+        fontsDir: 'app/fonts',
+        importPath: 'app/components/bootstrap-sass/vendor/assets/stylesheets',
+        httpImagesPath: '/images',
+        httpGeneratedImagesPath: '/images/generated',
+        httpFontsPath: '/styles/fonts',
+        relativeAssets: false,
+        assetCacheBuster: false,
+        // raw: 'Sass::Script::Number.precision = 10\n'
+      },
       serve: {
         options: {
-          // not sure includePaths actually does anything
-          includePaths: [
-            'app/components/bootstrap-sass/vendor/assets/stylesheets',
-            'app/styles'
-          ],
-          outputStyle: 'nested'
-        },
-        files: {
-          // needs to be full paths or error: "source string:1: error: invalid top-level expression"
-          // @see https://github.com/sindresorhus/grunt-sass/issues/46
-          '.tmp/bootstrap.css': 'app/components/bootstrap-sass/vendor/assets/stylesheets/bootstrap.scss',
+          debugInfo: true,
+          cssDir: '.tmp/styles',
+          generatedImagesDir: '.tmp/images/generated'
         }
       }
     },
+
+    // sass: {
+    //   serve: {
+    //     options: {
+    //       // not sure includePaths actually does anything
+    //       includePaths: [
+    //         'app/components/bootstrap-sass/vendor/assets/stylesheets',
+    //         'app/styles'
+    //       ],
+    //       outputStyle: 'nested'
+    //     },
+    //     files: {
+    //       // needs to be full paths or error: "source string:1: error: invalid top-level expression"
+    //       // @see https://github.com/sindresorhus/grunt-sass/issues/46
+    //       '.tmp/styles/bootstrap.css': 'app/components/bootstrap-sass/vendor/assets/stylesheets/bootstrap.scss',
+    //       '.tmp/styles/main.css': 'app/styles/main.scss'
+    //     }
+    //   }
+    // },
 
     // The grunt server settings
     connect: {
@@ -152,8 +147,8 @@ module.exports = function (grunt) {
     // Tasks to run concurrently to speed up the build process
     concurrent: {
       serve: [
-        // 'compass:serve'
-        'sass:serve'
+        'compass:serve'
+        // 'sass:serve'
       ],
     }
   });
