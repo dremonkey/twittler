@@ -13,7 +13,7 @@ define([
       // initalize with some random tweets
       for (var i = 0; i < 10; i++) {
         var tweet = new this.model();
-        this.add(tweet);
+        this.unshift(tweet);
       }
 
       this.scheduleNextTweet();
@@ -22,9 +22,7 @@ define([
     scheduleNextTweet: function (context) {
       var _this = context || this;
       var tweet = new _this.model();
-      _this.add(tweet);
-
-      console.log(_this.models);
+      _this.unshift(tweet);
       
       // schedule the next tweet
       setTimeout(function () {

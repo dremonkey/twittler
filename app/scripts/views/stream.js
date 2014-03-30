@@ -6,35 +6,41 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'vm'
-], function ($, _, Backbone, Vm) {
+  'vm',
+  './tweet'
+], function ($, _, Backbone, Vm, TweetView) {
   return Backbone.View.extend({
     el: '.stream',
     initialize: function () {
-      this.listenTo(this.collection, 'add', this.addTweet)
+      this.listenTo(this.collection, 'add', this.addTweet);
     },
 
     render: function () {
       var _this = this
         , collection = this.collection;
 
-      require(['views/tweet'], function (TweetView) {
-        collection.each(function (model) {
-          var options = {
-            model: model,
-            collection: collection
-          };
+      collection.each(function (model) {
+        var options = {
+          model: model,
+          collection: collection
+        };
 
-          var tweetView = Vm.create(_this, 'TweetView', TweetView, options);
-          tweetView.render();
-        });
+        var tweetView = Vm.create(_this, 'TweetView', TweetView, options);
+        tweetView.render();
       });
-
+      
       return this;
     },
 
-    addTweet: function () {
-      console.log('@TODO add tweet to top of the list');
+    addTweet: function (tweet) {
+      
+      var options = {
+        model: tweet,
+        collection: this.collection
+      };
+
+      var tweetView = Vm.create(this, 'TweetView', TweetView, options);
+      tweetView.render();
     }
   });
 });

@@ -27,14 +27,6 @@
   position: relative;
   background: white;
 
-  // Animations
-  &.ng-enter {
-    -webkit-animation: fadeInDown 1s;
-    -moz-animation: fadeInDown 1s;
-    -ms-animation: fadeInDown 1s;
-    animation: fadeInDown 1s;
-  }
-
   & > .content {
     border: 1px solid darken($bgBody, 10%);
     min-height: 100%;
@@ -75,14 +67,6 @@
         margin-bottom: 10px;
         @include clearfix();
 
-        // Animations
-        &.ng-enter {
-          -webkit-animation: fadeInLeft 1s;
-          -moz-animation: fadeInLeft 1s;
-          -ms-animation: fadeInLeft 1s;
-          animation: fadeInLeft 1s;
-        }
-
         p {
           margin: 0;
         }
@@ -101,6 +85,11 @@
           font-size: .8em;
           color: #999;
         }
+
+        .username {
+          font-weight: bold;
+          margin-right: 5px;
+        }
       }
     }
   }
@@ -116,13 +105,6 @@
     // Animations
     &.ng-hide-add {
       display: block !important;
-    }
-
-    &.ng-hide {
-      -webkit-animation: fadeOutUp 0.5s;
-      -moz-animation: fadeOutUp 0.5s;
-      -ms-animation: fadeOutUp 0.5s;
-      animation: fadeOutUp 0.5s;
     }
 
     .content {

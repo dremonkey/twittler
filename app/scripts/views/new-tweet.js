@@ -20,17 +20,12 @@ define([
     render: function () {
 
       var _this = this
-        , currentUser = this.collection.getCurrentUser() || new this.collection.model;
-        // , tplVars = {username: ''};
-      
-      // if (currentUser) {
-      //   tplVars = currentUser;
-      // }
+        , currentUser = this.collection.getCurrentUser() || new this.collection.model();
 
       var compiled = this.template(currentUser.toJSON());
       this.$el.html(compiled);
       
-      return this;  
+      return this;
     },
 
     updateUsername: function (user) {
