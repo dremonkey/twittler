@@ -14,6 +14,7 @@ define([
     render: function () {
       var t = this.template(this.model.toJSON());
       this.$el.append(t);
+      return this;
     }
   });
 });

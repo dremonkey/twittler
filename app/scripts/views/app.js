@@ -19,11 +19,31 @@ define([
         headerView.render();
       });
 
+      require([
+        'views/welcome',
+        'views/new-tweet',
+        'collections/users'
+      ], function (WelcomeView, NewTweetView, Users) {
+        
+        var users = new Users();
+        var options = {
+          collection: users
+        };
+
+        var welcomeView = Vm.create(_this, 'WelcomeView', WelcomeView, options)
+          , newTweetView = Vm.create(_this, 'NewTweetView', NewTweetView, options);
+
+        welcomeView.render();
+        newTweetView.render();
+      });
+
       require(['views/footer'], function (FooterView) {
         // Pass the appView down into the footer so we can render the visualisation
         var footerView = Vm.create(_this, 'FooterView', FooterView, {appView: _this});
         footerView.render();
       });
+
+      return this;
     }
   });
 });

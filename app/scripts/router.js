@@ -22,7 +22,6 @@ define([
 
     router.on('route:default', function (actions) {
       require(['views/stream', 'collections/stream'], function (StreamView, Stream) {
-        console.log('router default');
         var stream = new Stream();
         var options = {
           collection: stream

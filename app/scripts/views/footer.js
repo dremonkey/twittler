@@ -13,6 +13,8 @@ define([
     render: function () {
       var _this = this;
       $(this.el).html('<div>Footer Here</div>');
+
+      return this;
     }
   });
 });
