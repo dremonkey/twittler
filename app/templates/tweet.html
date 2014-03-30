@@ -1,13 +1,11 @@
-<li class="tweet message animated fadeInDown">
-  <div class="col-sm-9">
-    <p class="msgtext">
-      <a href="#" class="username" data-username="<%= username %>">
-        <%= username %>
-      </a>
-      <span><%= message %></span>
-    </p>
-  </div>
-  <div class="col-sm-3">
-    <p class="msgtime">@<%= createdAt %></p>
-  </div>
-</li>
+<div class="col-sm-9">
+  <p class="msgtext">
+    <a href="#" class="username" data-username="<%= username %>">
+      <%= username %>
+    </a>
+    <span><%= message %></span>
+  </p>
+</div>
+<div class="col-sm-3">
+  <p class="msgtime time"><%= formattedTime %></p>
+</div>

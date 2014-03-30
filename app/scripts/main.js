@@ -10,6 +10,7 @@ require.config({
     ],
     underscore: '../components/underscore/underscore',
     backbone: '../components/backbone/backbone',
+    moment: '../components/momentjs/min/moment.min',
 
     // Require.js plugins
     text: '../components/requirejs-text/text',

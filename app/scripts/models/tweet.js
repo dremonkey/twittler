@@ -5,7 +5,8 @@ define([
   'jquery',
   'underscore',
   'backbone',
-], function ($, _, Backbone) {
+  'moment',
+], function ($, _, Backbone, moment) {
 
   // utility function
   var randomElement = function (array) {
@@ -29,15 +30,18 @@ define([
     defaults: {
       username: '',
       message: '',
-      createdAt: ''
+      timestamp: '',
+      formattedTime: ''
     },
 
     initialize: function (attrs) {
 
       if (attrs || attrs.username) {
+        var date = new Date();
         this.set('username', attrs.username);
         this.set('message', (attrs.message || randomMessage()));
-        this.set('createdAt', new Date());
+        this.set('timestamp', date);
+        this.set('formattedTime', moment(date).fromNow());
       }
     }
   });

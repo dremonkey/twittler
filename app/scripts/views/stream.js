@@ -19,7 +19,7 @@ define([
       var _this = this;
       this.collection.each(function (model) {
         var tweetView = Vm.create(_this, 'TweetView', TweetView, {model: model});
-        tweetView.render();
+        _this.$el.prepend(tweetView.render().el);
       });
       
       return this;
@@ -27,7 +27,7 @@ define([
 
     addTweet: function (tweet) {
       var tweetView = Vm.create(this, 'TweetView', TweetView, {model: tweet});
-      tweetView.render();
+      this.$el.prepend(tweetView.render().el);
     }
   });
 });
