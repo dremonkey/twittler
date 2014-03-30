@@ -11,7 +11,9 @@ define([
   return Backbone.View.extend({
     el: '.welcome',
 
-    initialize: function () {},
+    initialize: function (options) {
+      this.users = options.users;
+    },
 
     render: function () {
       var _this = this
@@ -21,14 +23,15 @@ define([
       $btn.click(function (event) {
         event.preventDefault();
         
-        var User = _this.collection.model
+        var User = _this.users.model
           , username = $input.val();
         
         // create a new user
-        if (username && !_this.collection.getCurrentUser()) {
+        if (username && !_this.users.getCurrentUser()) {
+          
           var currentUser = new User({username: username});
-          _this.collection.add(currentUser);
-          _this.collection.setCurrentUser(currentUser);
+          _this.users.add(currentUser);
+          _this.users.setCurrentUser(currentUser);
           
           // hide the welcome box...
           // also sets display to 'none' when the animation is completed

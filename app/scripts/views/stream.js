@@ -16,16 +16,9 @@ define([
     },
 
     render: function () {
-      var _this = this
-        , collection = this.collection;
-
-      collection.each(function (model) {
-        var options = {
-          model: model,
-          collection: collection
-        };
-
-        var tweetView = Vm.create(_this, 'TweetView', TweetView, options);
+      var _this = this;
+      this.collection.each(function (model) {
+        var tweetView = Vm.create(_this, 'TweetView', TweetView, {model: model});
         tweetView.render();
       });
       
@@ -33,13 +26,7 @@ define([
     },
 
     addTweet: function (tweet) {
-      
-      var options = {
-        model: tweet,
-        collection: this.collection
-      };
-
-      var tweetView = Vm.create(this, 'TweetView', TweetView, options);
+      var tweetView = Vm.create(this, 'TweetView', TweetView, {model: tweet});
       tweetView.render();
     }
   });

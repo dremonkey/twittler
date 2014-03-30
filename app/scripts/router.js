@@ -17,17 +17,46 @@ define([
   });
   
   var initialize = function (options) {
-    var appView = options.appView;
-    var router = new AppRouter(options);
+    
+    var router = new AppRouter(options)
+      , appView = options.appView;
+
+    // Save users and stream instance...
+    // this is necessary because we don't have a database and we need to be sure
+    // that the users and stream returned is the same everywhere
+    var users = null
+      , stream = null;
 
     router.on('route:default', function (actions) {
-      require(['views/stream', 'collections/stream'], function (StreamView, Stream) {
-        var stream = new Stream();
-        var options = {
-          collection: stream
-        };
-        var page = Vm.create(appView, 'Stream', StreamView, options);
-        page.render();
+      
+      require([
+        'collections/users',
+        'collections/stream',
+        'views/stream',
+        'views/welcome',
+        'views/new-tweet'
+      ],
+      function (Users, Stream, StreamView, WelcomeView, NewTweetView) {
+        
+        users = new Users();
+        stream = new Stream(null, {users: users.models});
+
+        var streamView = Vm.create(appView, 'Stream', StreamView, {collection: stream, users: users})
+          , welcomeView = Vm.create(appView, 'WelcomeView', WelcomeView, {users: users})
+          , newTweetView = Vm.create(appView, 'NewTweetView', NewTweetView, {collection: stream, users: users});
+
+        streamView.render();
+        welcomeView.render();
+        newTweetView.render();
+      });
+
+      require([
+        'views/welcome',
+        'views/new-tweet',
+        'collections/users'
+      ], function (WelcomeView, NewTweetView, Users) {
+        
+        
       });
     });
 

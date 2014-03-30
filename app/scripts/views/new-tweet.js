@@ -6,21 +6,26 @@ define([
   'jquery',
   'underscore',
   'backbone',
+  '../models/tweet',
   'text!templates/new-tweet.html'
-], function ($, _, Backbone, newTweetTemplate) {
+], function ($, _, Backbone, Tweet, newTweetTemplate) {
   return Backbone.View.extend({
     el: '.new-tweet',
     
+    events: {
+      'submit': 'newTweet'
+    },
+
     template: _.template(newTweetTemplate),
     
-    initialize: function () {
-      this.listenTo(this.collection, 'updated:currentUser', this.updateUsername);
+    initialize: function (options) {
+      this.users = options.users;
+      this.listenTo(this.users, 'updated:currentUser', this.updateUsername);
     },
 
     render: function () {
-
       var _this = this
-        , currentUser = this.collection.getCurrentUser() || new this.collection.model();
+        , currentUser = this.users.getCurrentUser() || new this.users.model();
 
       var compiled = this.template(currentUser.toJSON());
       this.$el.html(compiled);
@@ -31,6 +36,26 @@ define([
     updateUsername: function (user) {
       var compiled = this.template(user.toJSON());
       this.$el.html(compiled);
+    },
+
+    newTweet: function (event) {
+      event.preventDefault();
+
+      var $input = $(event.currentTarget).find('input')
+        , user = this.users.getCurrentUser()
+        , msg = $input.val();
+      
+      // create a new tweet
+      var tweet = new Tweet({
+        username: user.get('username'),
+        message: msg
+      });
+
+      // add tweet to the collection
+      this.collection.add(tweet);
+
+      // clear the input box
+      $input.val('');
     }
   });
 });

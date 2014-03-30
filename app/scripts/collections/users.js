@@ -13,14 +13,14 @@ define([
     model: User,
     
     initialize: function () {
-      if (0 === this.models.length) {
-        this.models = [
-          new this.model({username:'shawndrost'}),
-          new this.model({username:'sharksforcheap'}),
-          new this.model({username:'mracus'}),
-          new this.model({username:'douglascalhoun'})
-        ];
-      }
+      console.info('UsersCollection Init');
+
+      this.add([
+        {username:'shawndrost'},
+        {username:'sharksforcheap'},
+        {username:'mracus'},
+        {username:'douglascalhoun'}
+      ]);
     },
 
     setCurrentUser: function (user) {

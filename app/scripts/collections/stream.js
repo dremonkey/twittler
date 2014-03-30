@@ -7,27 +7,37 @@ define([
   '../models/tweet'
 ], function ($, _, Backbone, Tweet) {
 
+  // utility function
+  function randomElement (array) {
+    var randomIndex = Math.floor(Math.random() * array.length);
+    return array[randomIndex];
+  }
+
+  function scheduleNextTweet (collection) {
+
+    var randomUser = randomElement(collection.users);
+    collection.add({username: randomUser.get('username')}); // add tweet to stream
+    
+    // schedule the next tweet
+    setTimeout(function () {
+      scheduleNextTweet(collection);
+    }, Math.floor(Math.random() * 5000) + 3000);
+  }
+
   return Backbone.Collection.extend({
+
     model: Tweet,
-    initialize: function () {
-      // initalize with some random tweets
-      for (var i = 0; i < 10; i++) {
-        var tweet = new this.model();
-        this.unshift(tweet);
-      }
 
-      this.scheduleNextTweet();
-    },
-
-    scheduleNextTweet: function (context) {
-      var _this = context || this;
-      var tweet = new _this.model();
-      _this.unshift(tweet);
+    users: null,
+    
+    initialize: function (models, options) {
+      console.info('StreamCollection Init');
       
-      // schedule the next tweet
-      setTimeout(function () {
-        _this.scheduleNextTweet(_this);
-      }, Math.floor(Math.random() * 5000) + 1000);
+      // clone original so that currentUser doesn't get randomly used
+      this.users = _.clone(options.users);
+
+      // output random tweets
+      scheduleNextTweet(this);
     }
   });
 });

@@ -9,8 +9,7 @@ define([
 
   return Backbone.Model.extend({
     defaults: {
-      username: '',
-      tweets: []
+      username: ''
     }
   });
 });

@@ -5,8 +5,7 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  '../collections/users'
-], function ($, _, Backbone, Users) {
+], function ($, _, Backbone) {
 
   // utility function
   var randomElement = function (array) {
@@ -25,21 +24,21 @@ define([
     return [randomElement(opening), randomElement(verbs), randomElement(objects), randomElement(nouns), randomElement(tags)].join(' ');
   };
 
-  var users = new Users();
-  var usernames = _(users.models).map(function (user) {
-    return user.get('username');
-  });
-
   return Backbone.Model.extend({
+    
     defaults: {
-      user: '',
+      username: '',
       message: '',
       createdAt: ''
     },
-    initialize: function () {
-      this.set('user', randomElement(usernames));
-      this.set('message', randomMessage());
-      this.set('createdAt', new Date());
+
+    initialize: function (attrs) {
+
+      if (attrs || attrs.username) {
+        this.set('username', attrs.username);
+        this.set('message', (attrs.message || randomMessage()));
+        this.set('createdAt', new Date());
+      }
     }
   });
 });
