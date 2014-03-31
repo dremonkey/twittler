@@ -67,7 +67,8 @@ body {
 }
 
 // ## Join Form
-.join .form-wrapper {
+.login-prompt .form-wrapper,
+.compose-prompt .form-wrapper {
   width: 100%;
   background: white;
   text-align: center;
@@ -82,8 +83,17 @@ body {
     font-size: 20px;
   }
 
+  input, button {
+    font-size: 18px;
+
+  }
+
   input {
     width: 300px;
+  }
+
+  button {
+    padding:4px 15px 3px;
   }
 }
 

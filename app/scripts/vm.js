@@ -5,7 +5,7 @@ define([
   'underscore',
   'backbone',
   'events'
-], function ($, _, Backbone, Events) {
+], function ($, _, Backbone, vents) {
   
   var views = {};
 
@@ -29,7 +29,7 @@ define([
       context.children[name] = view;
     }
 
-    Events.trigger('viewCreated');
+    vents.trigger('vm:created');
     return view;
   };
   

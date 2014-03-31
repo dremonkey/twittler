@@ -6,18 +6,21 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  'text!templates/home.html'
-], function ($, _, Backbone, homeTemplate) {
+  '../events',
+  'text!templates/home.html',
+  'text!templates/home/welcome.html'
+], function ($, _, Backbone, vents, homeTemplate, homeWelcomeTemplate) {
   return Backbone.View.extend({
     
     template: _.template(homeTemplate),
 
     events: {
-      'click .open-set-username': 'setUsername'
+      'click .open-login': 'login',
+      'click .open-compose': 'compose'
     },
 
-    initialize: function (options) {
-      this.vents = options.vents;
+    initialize: function () {
+      vents.on('user:loggedin', this.afterLogin, this);
     },
     
     render: function () {
@@ -26,9 +29,25 @@ define([
       return this;
     },
 
-    setUsername: function (event) {
+    // --------------------------------------------------------
+    // ## Global Event Handlers
+
+    afterLogin: function (user) {
+      var msg = _.template(homeWelcomeTemplate)(user.toJSON());
+      this.$el.find('.lead-wrapper').html(msg);
+    },
+
+    // --------------------------------------------------------
+    // ## DOM Event Handlers
+
+    login: function (event) {
       event.preventDefault();
-      this.vents.trigger('open:setUsername');
+      vents.trigger('user:login');
+    },
+
+    compose: function (event) {
+      event.preventDefault();
+      vents.trigger('tweet:compose');
     }
   });
 });

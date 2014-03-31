@@ -11,7 +11,8 @@ define([
   return Backbone.Model.extend({
     defaults: {
       username: '',
-      tweets: null
+      tweets: null,
+      current: false
     },
 
     initialize: function (attrs) {
@@ -27,6 +28,10 @@ define([
 
     select: function () {
       this.collection.setSelectedUser(this);
+    },
+
+    setCurrentUser: function () {
+      this.set('current', true);
     }
   });
 });

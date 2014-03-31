@@ -5,10 +5,13 @@ define([
   'jquery',
   'underscore',
   'backbone',
-  '../models/user'
-], function ($, _, Backbone, User) {
+  '../models/user',
+  '../events'
+], function ($, _, Backbone, User, vents) {
   return Backbone.Collection.extend({
-    currentUser: null, // basically logged in user
+    
+    currentUser: null, // basically serves to store the logged in user
+    
     selectedUser: null, // user being viewed
     
     model: User,
@@ -16,7 +19,7 @@ define([
     initialize: function (models, options) {
       console.info('UsersCollection Init');
 
-      this._vents = options.vents;
+      vents.on('user:loggedin', this.setCurrentUser, this);
 
       this.add([
         {username:'shawndrost'},
@@ -28,7 +31,7 @@ define([
 
     setCurrentUser: function (user) {
       this.currentUser = user;
-      this.trigger('updated:currentUser', user);
+      this.add(user);
     },
 
     getCurrentUser: function () {
@@ -36,11 +39,12 @@ define([
     },
 
     setSelectedUser: function (user) {
-      this._vents.trigger('user:selected', user);
+      this.selectedUser = user;
+      vents.trigger('users:selected', user);
     },
 
     getSelectedUser: function () {
-
+      return this.selectedUser;
     }
   });
 });

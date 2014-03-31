@@ -39,7 +39,6 @@ require([
   'router',
   'vm'
 ], function (AppView, Router, Vm){
-  
   var appView = Vm.create({}, 'AppView', AppView);
   appView.render();
 

@@ -25,34 +25,45 @@ define([
       'collections/stream',
       'views/home',
       'views/stream',
-      'views/join',
-      'views/new-tweet'
+      'views/login',
+      'views/compose',
+      'events'
     ],
-    function (Users, Stream, HomeView, StreamView, JoinView, NewTweetView) {
-    
+    function (Users, Stream, HomeView, StreamView, LoginView, ComposeView, vents) {
+
       var router = new AppRouter(options)
-        , appView = options.appView
-        , vents = _.extend({}, Backbone.Events);
+        , appView = options.appView;
 
       // Save users and stream instance...
       // this is necessary because we don't have a database and we need to be sure
       // that the users and stream returned is the same everywhere
-      var users = new Users(null, {vents: vents})
+      var users = new Users()
         , stream = new Stream(null, {users: users.models});
 
+      // ## Gloabl Event Listeners
       vents.on('user:selected', function (user) {
         router.navigate('stream/' + user.get('username'), {trigger: true});
       });
 
-      vents.on('open:setUsername', function () {
-        console.log('test');
-        var joinView = Vm.create(appView, 'JoinView', JoinView, {users: users});
-        $('body').append(joinView.render().el);
+      vents.on('user:login', function () {
+        var loginView = Vm.create(appView, 'LoginView', LoginView);
+        $('body').append(loginView.render().el);
+      });
+
+      // vents.on('user:loggedin', function (user) {
+      //   // add the new user to the collection...
+      //   // we need to do this here because login serves as a 'join+login' action
+      //   users.add(user);
+      // });
+
+      vents.on('tweet:compose', function () {
+        var composeView = Vm.create(appView, 'ComposeView', ComposeView, {collection: stream, users: users});
+        $('body').append(composeView.render().el);
       });
 
       router.on('route:home', function () {
 
-        var homeView = Vm.create(appView, 'HomeView', HomeView, {vents: vents})
+        var homeView = Vm.create(appView, 'HomeView', HomeView)
           , streamView = Vm.create(appView, 'Stream', StreamView, {collection: stream, limit: 10});
 
         $('#main').html(homeView.render().el);
@@ -63,9 +74,6 @@ define([
         var tweets = null
           , streamView = null;
 
-        var joinView = Vm.create(appView, 'JoinView', JoinView, {users: users})
-          , newTweetView = Vm.create(appView, 'NewTweetView', NewTweetView, {collection: stream, users: users});
-
         if (username) {
           var user = users.findWhere({username: username});
           tweets = user.get('tweets');
@@ -75,9 +83,6 @@ define([
         else {
           streamView = Vm.create(appView, 'Stream', StreamView, {collection: stream});
         }
-
-        // streamView.render();
-        // $('.chatty-list').html(streamView.render().el);
       });
 
       // Backbone.history needed for bookmarkable URLs

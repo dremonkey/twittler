@@ -22,8 +22,7 @@ define([
       });
 
       require(['views/footer'], function (FooterView) {
-        // Pass the appView down into the footer so we can render the visualisation
-        var footerView = Vm.create(_this, 'FooterView', FooterView, {appView: _this});
+        var footerView = Vm.create(_this, 'FooterView', FooterView);
         footerView.render();
       });
 
