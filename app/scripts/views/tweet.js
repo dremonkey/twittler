@@ -59,6 +59,8 @@ define([
       
       var user = this.model.get('user');
       user.select();
+
+      console.info('User Selected:', user.get('username'));
     }
   });
 });

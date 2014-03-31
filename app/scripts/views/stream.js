@@ -15,11 +15,11 @@ define([
 
     className: 'stream row',
 
-    limit: false,
+    limit: 100,
 
     initialize: function (options) {
       this.listenTo(this.collection, 'add', this.addTweet);
-      this.limit = options.limit;
+      this.limit = options.limit || this.limit;
     },
 
     render: function () {
@@ -37,7 +37,7 @@ define([
 
     addTweet: function (tweet) {
       var length = this.$el.children().length;
-      if (this.limit && length >= this.limit) {
+      if (length >= this.limit) {
         var $last = this.$el.children().last();
         $last.removeClass('fadeInDown');
         $last.addClass('fadeOutDown');

@@ -33,7 +33,6 @@ define([
       var compiled = this.template(this.currentUser.toJSON());
       this.$el.html(compiled);
       
-      console.log(this.currentUser);
       return this;
     },
 

@@ -1,0 +1,15 @@
+<div id="page-stream-content">
+  <div class="stream-header">
+    <div class="container">
+      <h1>Tweets by <span class="username"><%= username %></span></h1>
+      <% if (username == 'all') { %>
+      <span class="hint">hint | click on a name to see tweets by just that user</span>
+      <% } %>
+    </div>
+  </div>
+
+  <div id="stream-wrapper" class="container">
+      <!-- Stream will be appended here -->
+    </div>
+  </div>
+</div>

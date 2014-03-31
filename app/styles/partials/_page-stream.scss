@@ -1,0 +1,24 @@
+#page-stream-content {
+  .stream-header {
+    background: $blue;
+    color: lighten($blue, 30%);
+    padding: 60px 0;
+
+    h1 {
+      padding: 0;
+      margin: 0;
+      margin-bottom: 10px;
+    }
+
+    .username {
+      color: white;
+    }
+
+    .hint {}
+  }
+
+  #stream-wrapper {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
+}

@@ -7,12 +7,12 @@ define([
   'underscore',
   'backbone',
   '../events',
-  'text!templates/home.html',
+  'text!templates/page-home.html',
   'text!templates/home/welcome.html'
-], function ($, _, Backbone, vents, homeTemplate, homeWelcomeTemplate) {
+], function ($, _, Backbone, vents, pageTemplate, homeWelcomeTemplate) {
   return Backbone.View.extend({
     
-    template: _.template(homeTemplate),
+    template: _.template(pageTemplate),
 
     events: {
       'click .open-login': 'login',

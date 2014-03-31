@@ -23,13 +23,14 @@ define([
     require([
       'collections/users',
       'collections/stream',
-      'views/home',
+      'views/page-home',
+      'views/page-stream',
       'views/stream',
       'views/login',
       'views/compose',
       'events'
     ],
-    function (Users, Stream, HomeView, StreamView, LoginView, ComposeView, vents) {
+    function (Users, Stream, PageHomeView, PageStreamView, StreamView, LoginView, ComposeView, vents) {
 
       var router = new AppRouter(options)
         , appView = options.appView;
@@ -50,12 +51,6 @@ define([
         $('body').append(loginView.render().el);
       });
 
-      // vents.on('user:loggedin', function (user) {
-      //   // add the new user to the collection...
-      //   // we need to do this here because login serves as a 'join+login' action
-      //   users.add(user);
-      // });
-
       vents.on('tweet:compose', function () {
         var composeView = Vm.create(appView, 'ComposeView', ComposeView, {collection: stream, users: users});
         $('body').append(composeView.render().el);
@@ -63,26 +58,38 @@ define([
 
       router.on('route:home', function () {
 
-        var homeView = Vm.create(appView, 'HomeView', HomeView)
+        var pageView = Vm.create(appView, 'PageHomeView', PageHomeView)
           , streamView = Vm.create(appView, 'Stream', StreamView, {collection: stream, limit: 10});
 
-        $('#main').html(homeView.render().el);
+        $('#main').html(pageView.render().el);
         $('#stream-wrapper').append(streamView.render().el);
       });
 
       router.on('route:stream', function (username) {
         var tweets = null
+          , user = null
           , streamView = null;
 
         if (username) {
-          var user = users.findWhere({username: username});
-          tweets = user.get('tweets');
-
-          streamView = Vm.create(appView, 'Stream', StreamView, {collection: tweets});
+          user = users.findWhere({username: username});
+          
+          // User exists
+          if (user) {
+            tweets = user.get('tweets');
+            streamView = Vm.create(appView, 'Stream', StreamView, {collection: tweets});
+          }
+          // User doesn't dxist so just show all streams
+          else {
+            streamView = Vm.create(appView, 'Stream', StreamView, {collection: stream});
+          }
         }
         else {
           streamView = Vm.create(appView, 'Stream', StreamView, {collection: stream});
         }
+
+        var pageView = Vm.create(appView, 'PageStreamView', PageStreamView, {user: user});
+        $('#main').html(pageView.render().el);
+        $('#stream-wrapper').append(streamView.render().el);
       });
 
       // Backbone.history needed for bookmarkable URLs

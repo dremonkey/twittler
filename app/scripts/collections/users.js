@@ -16,7 +16,7 @@ define([
     
     model: User,
     
-    initialize: function (models, options) {
+    initialize: function () {
       console.info('UsersCollection Init');
 
       vents.on('user:loggedin', this.setCurrentUser, this);
@@ -40,7 +40,7 @@ define([
 
     setSelectedUser: function (user) {
       this.selectedUser = user;
-      vents.trigger('users:selected', user);
+      vents.trigger('user:selected', user);
     },
 
     getSelectedUser: function () {
