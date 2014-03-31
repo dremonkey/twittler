@@ -28,6 +28,7 @@ define([
   return Backbone.Model.extend({
     
     defaults: {
+      user: null,
       username: '',
       message: '',
       timestamp: '',
@@ -36,9 +37,10 @@ define([
 
     initialize: function (attrs) {
 
-      if (attrs || attrs.username) {
+      if (attrs && attrs.user) {
         var date = new Date();
-        this.set('username', attrs.username);
+        this.set('user', attrs.user);
+        this.set('username', attrs.user.get('username'));
         this.set('message', (attrs.message || randomMessage()));
         this.set('timestamp', date);
         this.set('formattedTime', moment(date).fromNow());

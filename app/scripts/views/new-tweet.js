@@ -51,8 +51,11 @@ define([
         message: msg
       });
 
-      // add tweet to the collection
+      // add tweet to the stream
       this.collection.add(tweet);
+
+      // add tweet to user tweets
+      user.addTweet(tweet);
 
       // clear the input box
       $input.val('');

@@ -8,7 +8,7 @@ define([
   'text!templates/layout.html'
 ], function ($, _, Backbone, Vm, layoutTemplate) {
   return Backbone.View.extend({
-    el: '.container',
+    el: 'body',
     
     initialize: function () {},
     

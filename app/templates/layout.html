@@ -1,31 +1,24 @@
-<div class="site-header"></div>
-
-<div class="chatty-chatboxes">
-  <div class="chatty-chatbox">
-    <div class="content">
-      <div class="chatty-newmessage new-tweet">
-        
+<div id="realm">
+  <header class="site-header">
+    <div class="container">
+      <div class="navbar-header">
+        <a href="/" class="navbar-brand">Twittler</a>
       </div>
-
-      <div class="chatty-list">
-        <ul class="messages stream">
+      <nav class="collapse navbar-collapse" role="navigation" data-toggle="collapse">
+        <ul class="nav navbar-nav">
+          <li><a href="/#">Home</a></li>
+          <li><a href="/#stream">Stream</a></li>
         </ul>
-      </div>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#" class="btn btn-outline">Choose your username</a></li>
+        </ul>
+      </nav>
 
-      <div class="welcome overlay animated">
-        <div class="content">
-          <p>Welcome to Twittler. Set your username to start tweeting.</p>
-          <form name="setup" class="form-inline" role="form">
-            <div class="form-group">
-              <label class="sr-only">Set Username</label>
-              <input type="text" placeholder="your username" class="form-control" name="username" required/>
-            </div>
-            <button class="btn btn-primary setusername">set</button>  
-          </form>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
+  </header>
 
-<div class="site-footer"></div>
+  <div id="main"></div>
+</div>
+<div class="site-footer">
+  <div class="container"></div>
+</div>

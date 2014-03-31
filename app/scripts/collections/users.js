@@ -8,12 +8,15 @@ define([
   '../models/user'
 ], function ($, _, Backbone, User) {
   return Backbone.Collection.extend({
-    currentUser: null,
+    currentUser: null, // basically logged in user
+    selectedUser: null, // user being viewed
     
     model: User,
     
-    initialize: function () {
+    initialize: function (models, options) {
       console.info('UsersCollection Init');
+
+      this._vents = options.vents;
 
       this.add([
         {username:'shawndrost'},
@@ -30,6 +33,14 @@ define([
 
     getCurrentUser: function () {
       return this.currentUser;
+    },
+
+    setSelectedUser: function (user) {
+      this._vents.trigger('user:selected', user);
+    },
+
+    getSelectedUser: function () {
+
     }
   });
 });

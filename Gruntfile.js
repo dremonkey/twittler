@@ -28,7 +28,7 @@ module.exports = function (grunt) {
         tasks: ['newer:jshint:app'],
       },
       compass: {
-        files: ['styles/{,*/}*.{scss,sass}'],
+        files: ['app/styles/{,*/}*.{scss,sass}'],
         tasks: ['compass:serve'],
       },
       // sass: {

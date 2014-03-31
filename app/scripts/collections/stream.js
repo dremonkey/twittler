@@ -14,10 +14,11 @@ define([
   }
 
   function scheduleNextTweet (collection) {
-
-    var randomUser = randomElement(collection.users);
-    collection.add({username: randomUser.get('username')}); // add tweet to stream
+    console.log('scheduleNextTweet');
     
+    var randomUser = randomElement(collection._users);
+    collection.add({user: randomUser}); // add tweet to stream
+
     // schedule the next tweet
     setTimeout(function () {
       scheduleNextTweet(collection);
@@ -28,16 +29,25 @@ define([
 
     model: Tweet,
 
-    users: null,
+    _users: null,
+    _usernames: null,
     
     initialize: function (models, options) {
       console.info('StreamCollection Init');
-      
-      // clone original so that currentUser doesn't get randomly used
-      this.users = _.clone(options.users);
 
-      // output random tweets
+      // Event Listeners
+      this.on('add', this.saveUserTweet);
+
+      // Set Collection Properties
+      this._users = _.clone(options.users);
+
+      // Prepare Next Tweet
       scheduleNextTweet(this);
+    },
+
+    saveUserTweet: function (tweet) {
+      var user = tweet.get('user');
+      user.addTweet(tweet);
     }
   });
 });

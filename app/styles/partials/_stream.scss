@@ -1,0 +1,20 @@
+.stream {
+  list-style: none;
+  padding: 0;
+
+  .tweet {
+    padding: 10px 0;
+    @include clearfix();
+
+    .username {
+      font-weight: bold;
+    }
+
+    .time {
+      color: #999;
+      float: right;
+    }
+  }
+
+  @include clearfix();
+}
